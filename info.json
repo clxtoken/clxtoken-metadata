@@ -1,1 +1,14 @@
-
+{
+  "name": "CLXToken",
+  "symbol": "CLX",
+  "decimals": 18,
+  "address": "0x8F9D00714F0925A3EC35d1E9E03c58511D3208Cb",
+  "chainId": 56,
+  "logoURI": "https://raw.githubusercontent.com/clxtoken/clxtoken-metadata/main/assets/clx-round-logo.png",
+  "tags": ["defi", "clx", "erc20"],
+  "extensions": {
+    "website": "https://clxtoken.com",
+    "description": "CLX — Zincir Üstü, Sessiz Güvenin Dijital Yüzü",
+    "documentation": "https://clxtoken.com/docs"
+  }
+}
