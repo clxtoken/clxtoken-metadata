@@ -13,7 +13,7 @@ CLX, zincir üstü güvenin sessiz mimarisini temsil eden dijital bir varlıktı
 - **Sembol:** CLX  
 - **Zincir:** BNB Smart Chain (ChainID: 56)  
 - **Desimal:** 18  
-- **Kontrat Adresi:** `0x8F9D00714F0925A3EC35d1E9E03c58511D3208Cb`  
+- **Kontrat Adresi:** `0xa741c6f33bBC772342250Fd0ED3c248Bf5c8b801`  
 - **Logo:** ![CLX Logo](https://raw.githubusercontent.com/clxtoken/clxtoken-metadata/main/assets/clx-round-logo.png)
 
 ---
