@@ -2,117 +2,85 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CLXToken – Zincir Üstü Güven</title>
-  <link rel="icon" href="https://raw.githubusercontent.com/clxtoken/clxtoken-metadata/main/assets/clx-round-logo.png" type="image/png">
-  <meta name="description" content="CLXToken zincir üstü güven, teknik sadelik ve sessiz güç üzerine kurulmuş bir projedir.">
-  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+  <title>CLX Transfer Modülü</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: #f6f6f6;
-      color: #222;
+      padding: 40px;
     }
-    header, footer {
+    .container {
       background-color: #fff;
-      padding: 24px;
-      border-bottom: 1px solid #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
-    .logo { height: 40px; }
-    .cta-button {
-      background-color: #232323;
-      color: #fff;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 500;
-    }
-    .hero {
+    h2 {
       text-align: center;
-      padding: 80px 20px 40px;
+      margin-bottom: 20px;
     }
-    .section {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
     }
-    input, button {
+    input {
       width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      margin-bottom: 16px;
+      padding: 12px;
+      margin-top: 5px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 6px;
       font-size: 16px;
     }
     button {
-      background-color: #232323;
-      color: #fff;
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
     }
     button:hover {
-      background-color: #444;
+      background-color: #0056b3;
     }
-    #result a {
-      color: green;
-      word-break: break-all;
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <img src="https://raw.githubusercontent.com/clxtoken/clxtoken-metadata/main/assets/clx-round-logo.png" alt="CLXToken Logo" class="logo">
-    <a href="https://t.me/clxtoken" target="_blank" class="cta-button">Aramıza Katıl</a>
-  </header>
-
-  <div class="hero">
-    <h1>CLXToken – Zincir Üstü Güven</h1>
-    <p>Minimalist. Güvenilir. Sessiz Güç.</p>
-    <a href="https://t.me/clxtoken" target="_blank" class="cta-button">Aramıza Katıl</a>
-  </div>
-
-  <div class="section">
+  <div class="container">
     <h2>CLX Transfer Modülü</h2>
-    <p>MetaMask ile bağlanarak zincir üstü CLX transferi gerçekleştirebilirsiniz.</p>
-
     <label for="recipient">Alıcı Adresi:</label>
     <input type="text" id="recipient" placeholder="0x...">
-
+    
     <label for="amount">Miktar (CLX):</label>
-    <input type="text" id="amount" placeholder="örn: 10000">
-
+    <input type="text" id="amount" placeholder="1000">
+    
     <button onclick="sendCLX()">Gönder</button>
-    <p id="result"></p>
+    <div id="result"></div>
   </div>
 
-  <div class="section">
-    <h2>Proje Kimliği</h2>
-    <p>CLX, gösterişten uzak ama teknik olarak güçlü bir varlık sunar. Zincir üstü güven, sadelik ve stratejik duruş esas alınmıştır.</p>
-  </div>
+  <!-- Ethers.js kütüphanesi -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
 
-  <div class="section">
-    <h2>Teknik Güç</h2>
-    <p>OpenZeppelin altyapısıyla ERC-20 kontratı yapılandırıldı. Mint & Burn fonksiyonları sade ve güvenli biçimde tanımlandı.</p>
-  </div>
-
-  <div class="section">
-    <h2>Topluluk & Erişim</h2>
-    <p>CLX topluluğuna <a href="https://t.me/clxtoken" target="_blank">Telegram</a> üzerinden erişebilir, geliştirici kaynaklarına <a href="https://github.com/clxtoken/clxtoken-metadata" target="_blank">GitHub</a> üzerinden ulaşabilirsiniz.</p>
-  </div>
-
-  <footer>
-    <div class="footer-links">
-      <a href="https://github.com/clxtoken/clxtoken-metadata" target="_blank">GitHub</a>
-      <a href="https://t.me/clxtoken" target="_blank">Telegram</a>
-    </div>
-    <p>© 2025 CLXToken. Tüm hakları saklıdır.</p>
-  </footer>
-
+  <!-- Transfer fonksiyonu -->
   <script>
     const tokenAddress = "0xa741c6f33bBC772342250Fd0ED3c248Bf5c8b801";
     const abi = [
@@ -125,6 +93,10 @@
       result.innerText = "İşlem gönderiliyor...";
 
       try {
+        if (!window.ethereum) {
+          throw new Error("MetaMask yüklü değil veya tarayıcı desteklemiyor.");
+        }
+
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
@@ -132,9 +104,18 @@
 
         const to = document.getElementById("recipient").value.trim();
         const amountInput = document.getElementById("amount").value.trim();
-        const amount = ethers.utils.parseUnits(amountInput, 18);
 
+        if (!ethers.utils.isAddress(to)) {
+          throw new Error("Geçersiz alıcı adresi.");
+        }
+
+        if (isNaN(amountInput) || Number(amountInput) <= 0) {
+          throw new Error("Geçerli bir miktar girin.");
+        }
+
+        const amount = ethers.utils.parseUnits(amountInput, 18);
         const tx = await contract.transfer(to, amount);
+
         result.innerHTML = `✅ İşlem gönderildi: <a href="https://bscscan.com/tx/${tx.hash}" target="_blank">${tx.hash}</a>`;
       } catch (err) {
         result.style.color = "red";
@@ -142,6 +123,5 @@
       }
     }
   </script>
-
 </body>
 </html>
