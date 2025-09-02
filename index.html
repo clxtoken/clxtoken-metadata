@@ -6,9 +6,7 @@
   <title>CLXToken – Zincir Üstü Güven</title>
   <link rel="icon" href="https://raw.githubusercontent.com/clxtoken/clxtoken-metadata/main/assets/clx-round-logo.png" type="image/png">
   <meta name="description" content="CLXToken zincir üstü güven, teknik sadelik ve sessiz güç üzerine kurulmuş bir projedir.">
- 
   <style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     body {
       margin: 0;
       font-family: "Segoe UI", sans-serif;
@@ -60,7 +58,7 @@
     }
     #result a {
       color: green;
-      word-break: break-all;
+      word-break: break-word;
     }
   </style>
 </head>
@@ -73,7 +71,7 @@
 
   <div class="hero">
     <h1>CLXToken – Zincir Üstü Güven</h1>
-    <p>Minimalist. Güvenilir. Sessiz Güç.</p>
+    <p>Merkezsizlik. Güvenlik. Sessiz Güç.</p>
     <a href="https://t.me/clxtoken" target="_blank" class="cta-button">Aramıza Katıl</a>
   </div>
 
@@ -114,11 +112,13 @@
     <p>© 2025 CLXToken. Tüm hakları saklıdır.</p>
   </footer>
 
+  <!-- Doğru formatta ethers.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+
+  <!-- Transfer fonksiyonu -->
   <script>
     const tokenAddress = "0xa741c6f33bBC772342250Fd0ED3c248Bf5c8b801";
-    const abi = [
-      "function transfer(address to, uint amount) public returns (bool)"
-    ];
+    const abi = ["function transfer(address to, uint amount) public returns (bool)"];
 
     async function sendCLX() {
       const result = document.getElementById("result");
@@ -126,6 +126,8 @@
       result.innerText = "İşlem gönderiliyor...";
 
       try {
+        if (!window.ethereum) throw new Error("MetaMask yüklü değil.");
+
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
@@ -133,9 +135,13 @@
 
         const to = document.getElementById("recipient").value.trim();
         const amountInput = document.getElementById("amount").value.trim();
-        const amount = ethers.utils.parseUnits(amountInput, 18);
 
+        if (!ethers.utils.isAddress(to)) throw new Error("Geçersiz adres.");
+        if (isNaN(amountInput) || Number(amountInput) <= 0) throw new Error("Geçersiz miktar.");
+
+        const amount = ethers.utils.parseUnits(amountInput, 18);
         const tx = await contract.transfer(to, amount);
+
         result.innerHTML = `✅ İşlem gönderildi: <a href="https://bscscan.com/tx/${tx.hash}" target="_blank">${tx.hash}</a>`;
       } catch (err) {
         result.style.color = "red";
