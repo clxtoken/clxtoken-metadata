@@ -2,35 +2,58 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>CLX Transfer Modülü</title>
+  <title>CLX Paneli</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      margin: 0;
-      padding: 40px;
+    * {
+      box-sizing: border-box;
     }
-    .container {
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1e1e2f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      background-color: #2e2e3e;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    nav a {
+      color: #ddd;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #fff;
+    }
+    main {
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .module {
       background-color: #fff;
       padding: 30px;
       border-radius: 10px;
-      max-width: 500px;
-      margin: auto;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     label {
       font-weight: bold;
-      margin-top: 10px;
       display: block;
+      margin-top: 15px;
     }
     input {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       margin-top: 5px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
@@ -55,27 +78,45 @@
       font-weight: bold;
       text-align: center;
     }
-    a {
-      color: #007bff;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
+    footer {
+      background-color: #1e1e2f;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>CLX Transfer Modülü</h2>
-    <label for="recipient">Alıcı Adresi:</label>
-    <input type="text" id="recipient" placeholder="0x...">
-    
-    <label for="amount">Miktar (CLX):</label>
-    <input type="text" id="amount" placeholder="1000">
-    
-    <button onclick="sendCLX()">Gönder</button>
-    <div id="result"></div>
-  </div>
+
+  <header>
+    <h1>CLX Yönetim Paneli</h1>
+  </header>
+
+  <nav>
+    <a href="#">Ana Sayfa</a>
+    <a href="#">Transfer</a>
+    <a href="#">İşlem Geçmişi</a>
+    <a href="#">Ayarlar</a>
+  </nav>
+
+  <main>
+    <section class="module">
+      <h2>CLX Transfer Modülü</h2>
+      <label for="recipient">Alıcı Adresi:</label>
+      <input type="text" id="recipient" placeholder="0x...">
+
+      <label for="amount">Miktar (CLX):</label>
+      <input type="text" id="amount" placeholder="1000">
+
+      <button onclick="sendCLX()">Gönder</button>
+      <div id="result"></div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 CLX Teknoloji. Tüm hakları saklıdır.
+  </footer>
 
   <!-- Ethers.js kütüphanesi -->
   <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
@@ -123,5 +164,6 @@
       }
     }
   </script>
+
 </body>
 </html>
