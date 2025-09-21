@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Hemen Havale</title>
+</head>
+<body>
+  <h2>Hemen Havale</h2>
+  <label>Kullanıcı Kodu:</label>
+  <input type="text" id="userCode"><br><br>
+
+  <button onclick="startPayment()">Devam Et</button>
+
+  <div id="result"></div>
+
+  <script>
+    let transaction = null;
+
+    async function startPayment() {
+      const userCode = document.getElementById("userCode").value;
+
+      const res = await fetch("/api/havale", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userCode })
+      });
+
+      transaction = await res.json();
+      document.getElementById("result").innerHTML = `
+        <p><strong>Tutar:</strong> ₺${transaction.amount}</p>
+        <p><strong>Banka:</strong> ${transaction.bank}</p>
+        <p><strong>IBAN:</strong> ${transaction.iban}</p>
+        <p><strong>Hesap Adı:</strong> ${transaction.accountName}</p>
+        <button onclick="confirmPayment()">Yatırım Yaptım</button>
+      `;
+    }
+
+    async function confirmPayment() {
+      const res = await fetch("/api/havale/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userCode: transaction.userCode,
+          amount: transaction.amount,
+          timestamp: transaction.timestamp
+        })
+      });
+
+      const result = await res.json();
+      alert("Durum: " + result.status + (result.alarm ? "\nAlarm: " + result.alarm : ""));
+    }
+  </script>
+</body>
+</html>

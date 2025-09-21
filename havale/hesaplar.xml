@@ -1,0 +1,12 @@
+<hesaplar>
+  <hesap>
+    <banka>Ziraat Bankası</banka>
+    <iban>TR120001000000123456789012</iban>
+    <ad>ABC Ödeme Hizmetleri A.Ş.</ad>
+  </hesap>
+  <hesap>
+    <banka>İş Bankası</banka>
+    <iban>TR340006100000123456789012</iban>
+    <ad>XYZ Finansal Teknolojiler Ltd.</ad>
+  </hesap>
+</hesaplar>
